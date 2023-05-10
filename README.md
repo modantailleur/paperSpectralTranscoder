@@ -2,7 +2,7 @@
 
 This repo contains code for our paper: ... . Results of the paper can be reproduced looking at section ... . Some audio samples can be generated looking at section ... . Some complementary experiment results are in section ... 
 
-## Paper results reproduction
+## Paper Results Replication
 
 ### Environments
 
@@ -26,6 +26,27 @@ Execute the following commands to generate third-octave and Mel data from the [T
 ### Launch experiment
 
 The experiment plan is developped with [doce](https://doce.readthedocs.io/en/latest/). Please note that you can launch only partially the experiment following doce tutorial. The full experiment can be launched using the following commands:
+
+```
+command to execute
+```
+
+Then, you can export the results of the experiment in a png format in the results folder using the following commands:
+
+```
+command to execute
+```
+
+
+### Evaluate models on classification datasets
+
+To evaluate the model on [UrbanSound8k](https://urbansounddataset.weebly.com/urbansound8k.html) and [SONYC-UST](https://zenodo.org/record/3966543#.ZFtddpHP1kg), please execute the following commands to launch the experiment and train the additional fully connected layers:
+
+```
+command to execute
+```
+
+Then, you can export the results of the experiment in a png format in the results folder using the following commands:
 
 ```
 command to execute
