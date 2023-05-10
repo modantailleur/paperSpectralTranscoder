@@ -55,10 +55,16 @@ command to execute
 
 ## Audio generation
 
-As Mel spectrograms can be inverted with librosa using the feature [mel_to_audio](https://librosa.org/doc/main/generated/librosa.feature.inverse.mel_to_audio.html), we can also invert transcoded Mel spectrograms and thus retrieve audio from third-octave spectrograms. Some audio examples are available in the audio folder. You can try with your own audio files, by putting your wav file in the audio folder and executing this command:
+As Mel spectrograms can be inverted with librosa using the feature [mel_to_audio](https://librosa.org/doc/main/generated/librosa.feature.inverse.mel_to_audio.html), we can also invert transcoded Mel spectrograms and thus retrieve audio from third-octave spectrograms. Some audio examples obtained on [freesound](https://freesound.org/) are available in the audio and generated_audio folders. You can try with your own audio files, by putting your wav file in the audio folder and executing this command:
 
 ```
 command to execute
 ```
 
+The generated wav files will be placed in the generated_audio folder.
+
 ## Complementary experiment results
+
+Some training curves, and other complementary results are shown in the results folder. This includes a revised version of F.Gontier et al. aggregation method proposed in the paper [Polyphonic training set synthesis improves self-supervised urban sound classification](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/). Instead of taking the top 3, the top 8 classes of SONYC-UST is taken into account for the aggregation. During inference, some of the classes that were considered relevant for each SONYC-UST class are grouped, so that the vector of size 527 becomes a vector of size ... . 
+
+
