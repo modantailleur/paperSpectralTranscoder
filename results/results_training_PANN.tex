@@ -1,0 +1,16 @@
+\begin{table}
+\centering
+\caption{step: metric dataset: full classifier: PANN hidden1: -99999 hidden2: -99999 }
+\begin{tabular}{lrlllllrlllrrr}
+\toprule
+{} &  ts & transcoder & epoch & learning\_rate & kernel\_size & nb\_layers &  dilation & nb\_channels & prop\_logit & avg\_mels\_mse - \downarrow &  avg\_logit\_bce - \downarrow &  avg\_logit\_kl - \downarrow &  ptopafc \% + \uparrow \\
+\midrule
+\textbf{0} &   0 &       pinv &       &                &              &            &         0 &              &             &                       12.43 &                      0.029905 &                     0.014438 &                    0.4 \\
+\textbf{1} &   0 &   cnn_pinv &   200 &             -3 &            5 &          5 &         1 &           64 &             &                       10.14 &                      0.029329 &                     0.013945 &                    0.5 \\
+\textbf{2} &   1 &   cnn_pinv &   200 &             -3 &            5 &          5 &         1 &           64 &         100 &                       18.56 &                      0.017192 &                     0.000734 &                   89.3 \\
+\textbf{3} &   1 &       self &   200 &             -4 &              &            &         0 &              &             &                           - &                      0.017400 &                     0.000792 &                   83.7 \\
+\textbf{4} &   1 &  effnet_b0 &   200 &             -5 &              &            &         0 &              &             &                           - &                      0.126070 &                     0.008994 &                   69.4 \\
+\textbf{5} &   1 &  effnet_b7 &   200 &             -5 &              &            &         0 &              &             &                           - &                      0.068294 &                     0.006117 &                   76.8 \\
+\bottomrule
+\end{tabular}
+\end{table}

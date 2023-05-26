@@ -1,0 +1,40 @@
+batch_size: 64
+cnn_dilation: 1
+cnn_kernel_size: 5
+cnn_nb_channels: 64
+cnn_nb_layers: 5
+epochs: 200
+input_shape: !!python/tuple
+- 8
+- 64
+mels_type: YamNet
+mlp_hl_1: null
+mlp_hl_2: null
+model_type: cnn_pinv
+output_shape: !!python/tuple
+- 96
+- 64
+settings:
+  data:
+    audio_dir: TAU-urban-acoustic-scenes-2020-mobile-development
+    dataset_name: Dcase-Task1-Pann-FullDataset
+    dbtype: fg
+    eval_ratio: 0.15
+    frame_length: 4096
+    hop_length: 4000
+    labels_dict:
+      airport: 0
+      bus: 1
+      metro: 2
+      metro_station: 3
+      park: 4
+      public_square: 5
+      shopping_mall: 6
+      street_pedestrian: 7
+      street_traffic: 8
+      tram: 9
+    n_mels: 64
+    root_dir: data
+    sr: 32000
+    train_ratio: 0.75
+    valid_ratio: 0.15
