@@ -54,7 +54,27 @@ please use the following commands:
 python3 exp_train_model/launch_experiment/launch_exp_py.py --exp_type detailed
 ```
 
-Then, you can export the results of the experiment in a png format in the results folder using the following commands:
+Alternatively, the experiment can be launched using slurms (to launch code on jean zay server).
+First you need to create your slurms:
+
+```
+python3 exp_train_model/launch_experiment/slurms_create.py
+```
+
+Then launch the reference experiment using the following command:
+
+```
+python3 exp_train_model/launch_experiment/jean_zay_slurm_reference.slurm
+```
+
+
+Wait until the reference plan of the experiment is finished. Then you can launch all the slurm files in different GPUs using the following command:
+
+```
+python3 exp_train_model/launch_experiment/launch_exp_slurms.py
+```
+
+After the experiment is done computing, you can export the results in a png format in the "results" folder using the following commands:
 
 ```
 python3 exp_train_model/export_experiment_results.py 
@@ -73,6 +93,9 @@ python3 exp_train_model/main_doce_training.py -s cnn/dataset=full+classifier=PAN
 To plot the training curve of the trained model used in the paper, execute the 
 following command:
 
+```
+python3 exp_train_model/plot_training_curve.py
+```
 
 
 ### Experiment: Evaluate models on classification datasets

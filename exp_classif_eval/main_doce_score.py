@@ -17,7 +17,7 @@ torch.manual_seed(0)
 
 # define the experiment
 experiment = doce.Experiment(
-  name = 'evaluation_on_datasets',
+  name = 'classif_exp',
   purpose = 'calculates the correlation in time of presence of tvb for the outputs of pann, yamnet and for the tfsd',
   author = 'Modan Tailleur',
   address = 'modan.tailleur@ls2n.fr',
@@ -26,7 +26,7 @@ experiment = doce.Experiment(
 ########## ACCESS PATH ##################
 
 #general
-exp_path = '../2-ThirdOToMel-data/classification_experiments/'
+exp_path = './spectral_transcoder_data/classification_experiments/'
 if not os.path.exists(exp_path):
     # Create the directory recursively
     os.makedirs(exp_path)

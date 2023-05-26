@@ -20,7 +20,7 @@ if torch.cuda.is_available():
 
 # define the experiment
 experiment = doce.Experiment(
-  name = "exp_with_pann_resnet38",
+  name = "train_exp",
   purpose = 'experiment for spectral transcoder',
   author = 'Modan Tailleur',
   address = 'modan.tailleur@ls2n.fr',
@@ -32,44 +32,14 @@ experiment = doce.Experiment(
 
 # set acces paths (here only storage is needed)
 #general
-exp_path = '../2-ThirdOToMel-data/training_experiments/'
-
-#back from pc lagrange
-#exp_path = '/home/user/Documents/from_pc_lagrange/doce_experiment_08032023/doce_experiments/'
-
-#for SSD
-#exp_path = '/media/user/MT-SSD/0-PROJETS_INFO/Thèse/exp_11122022//2-ThirdOToMel-data/doce_experiments/'
-#exp_path = '/media/user/MT-SSD/0-PROJETS_INFO/Thèse/exp_ts_hybridts_urban_13032023/doce_experiments/'
-#exp_path = '/media/user/MT-SSD-NEW/0-PROJETS_INFO/Thèse/exp_01042023/BACK-2-ThirdOToMel-data/training_experiments/'
-
-#for jean zay
-#exp_path = '/gpfswork/rech/dpr/uml42ji/2-ThirdOToMel-data/doce_experiments/'
-
-#for local CPU
-#exp_path = '/home/user/Documents/Thèse/Code/2-ThirdOToMel-data/doce_experiments/'
-
-#for mlserver
-#exp_path = '/home/tailleur/localdata/2-ThirdOToMel-data/doce_experiments/'
+exp_path = './spectral_transcoder_data/training_experiments/'
 
 #########################
 ######################################
 # PROJECT TRAIN DATA PATH
 
 #general
-#PROJECT_DATA_PATH = Path("../2-ThirdOToMel-data/")
-
-#for SSD
-#PROJECT_DATA_PATH = Path("/media/user/MT-SSD/0-PROJETS_INFO/Thèse/exp_11122022/2-ThirdOToMel-data/")
-PROJECT_DATA_PATH = Path("/media/user/MT-SSD-NEW/0-PROJETS_INFO/Thèse/exp_01042023/BACK-2-ThirdOToMel-data/")
-
-#for jean zay
-#PROJECT_DATA_PATH = Path("/gpfswork/rech/dpr/uml42ji/2-ThirdOToMel-data/")
-
-#for local CPU
-#PROJECT_DATA_PATH = Path("/home/user/Documents/Thèse/Code/2-ThirdOToMel-data")
-
-#for mlserver
-#PROJECT_DATA_PATH = Path("/home/tailleur/localdata/2-ThirdOToMel-data")
+PROJECT_DATA_PATH = Path('./spectral_transcoder_data/')
 
 if not os.path.exists(exp_path):
     # Create the directory recursively
@@ -141,16 +111,6 @@ experiment.add_plan('ts',
   learning_rate = [-3, -4, -5],
   epoch = [1, 5, 10, 20, 50, 100, 150, 200, 300, 400]
 )
-
-# experiment.add_plan('diffusion',
-#   step = ['train', 'evaluate', 'metric'],
-#   #self means retrain YamNet if classifier is YamNet, retrain PANN if classifier is PANN
-#   transcoder = ["unet"],
-#   dataset = ['TEST', 'full', 'urban'],
-#   classifier = ['YamNet','PANN'],
-#   #learning_rate = [-3, -4, -5],
-#   epoch = [1, 100]
-# )
 
 ###############################
 # metrics from loss functions

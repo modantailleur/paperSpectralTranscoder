@@ -146,11 +146,11 @@ def main(config):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate 1s Mels and Third-Octave spectrograms')
 
-    parser.add_argument('--audio_dataset_path', type=str, default="..",
+    parser.add_argument('--audio_dataset_path', type=str, default="./",
                         help='The path where the datasets are stored')
     parser.add_argument('--audio_dataset_name', type=str, default='URBAN-SOUND-8K',
                         help='The name of the dataset (URBAN-SOUND-8K or SONYC-UST)')
-    parser.add_argument('--output_path', type=str, default='/home/user/Documents/Thèse/Code/2-ThirdOToMel-data/data',
+    parser.add_argument('--output_path', type=str, default='spectral_transcoder_data/data',
                         help='The name of the dataset')
     parser.add_argument('--verbose', type=bool, default=False, help='Show classification results for every file if set to True')
     config = parser.parse_args()

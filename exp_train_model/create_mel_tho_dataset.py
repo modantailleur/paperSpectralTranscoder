@@ -366,15 +366,15 @@ def _delete_everything_in_folder(folder):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate 1s Mels and Third-Octave spectrograms')
 
-    parser.add_argument('--dataset_name', type=str, default='Dcase-Task1-TEST',
+    parser.add_argument('--dataset_name', type=str, default='Dcase-Task1-full',
                         help='The name of the dataset')
-    parser.add_argument('--audio_dataset_path', type=str, default='/media/user/MT-SSD-NEW/0-PROJETS_INFO/Thèse',
+    parser.add_argument('--audio_dataset_path', type=str, default='./',
                         help='The name of the dataset')
     parser.add_argument('--audio_dataset_name', type=str, default='TAU-urban-acoustic-scenes-2020-mobile-development',
                         help='The name of the dataset')
-    parser.add_argument('--output_path', type=str, default='/home/user/Documents/Thèse/Code/2-ThirdOToMel-data/data',
+    parser.add_argument('--output_path', type=str, default='./spectral_transcoder_data/data',
                         help='The name of the dataset')
-    parser.add_argument('--setting_data_path', type=str, default='/home/user/Documents/Thèse/Code/2-ThirdOToMel-data/data_settings',
+    parser.add_argument('--setting_data_path', type=str, default='./spectral_transcoder_data/data_settings',
                         help='The name of the dataset')
     
     parser.add_argument('--train_ratio', type=float, default=0.75,

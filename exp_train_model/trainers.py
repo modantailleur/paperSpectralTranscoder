@@ -307,7 +307,7 @@ class HybridTrainer:
     
     def load_model(self, device):
         self.model = self.model.to(device)
-        state_dict = torch.load(self.models_path / self.model_name, map_location=device)
+        state_dict = torch.load(self.models_path / (self.model_name+".pth"), map_location=device)
         self.model.load_state_dict(state_dict)
         
     def save_model(self):
@@ -316,7 +316,7 @@ class HybridTrainer:
         SAVE MODEL
         """
     
-        torch.save(self.best_state_dict, self.models_path + self.model_name)
+        torch.save(self.best_state_dict, self.models_path + self.model_name + ".pth")
     
         """
         "SAVE MODEL SETTINGS"
