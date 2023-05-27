@@ -121,9 +121,12 @@ def step(setting, experiment):
             trainer = ClassifDatasetTrainer(model_name, data_dir, audio_dir, experiment.path.model, scores_len, output_len)
             losses_train_fold, losses_eval_fold = trainer.train(epoch=epoch, batch_size=batch_size)
 
-            np.save(experiment.path.loss+setting.identifier()+'_loss_train.npy', losses_train_fold)
-            np.save(experiment.path.loss+setting.identifier()+'_loss_eval.npy', losses_eval_fold)
-
+            with open((experiment.path.loss+setting.identifier()+'_loss_train'), 'wb') as f:
+                pickle.dump(losses_train_fold, f)
+            with open((experiment.path.loss+setting.identifier()+'_loss_eval'), 'wb') as f:
+                 pickle.dump(losses_eval_fold, f)
+            # np.save(experiment.path.loss+setting.identifier()+'_loss_train.npy', losses_train_fold)
+            # np.save(experiment.path.loss+setting.identifier()+'_loss_eval.npy', losses_eval_fold)
             with open((experiment.path.model+setting.identifier()+'_model_fold'), 'wb') as f:
                 pickle.dump(trainer.model_fold, f)
 

@@ -90,7 +90,7 @@ class TSEvaluater:
     
     def load_model(self, device):
         self.model = self.model.to(device)
-        state_dict = torch.load(self.models_path + self.model_name + ".pth", map_location=device)
+        state_dict = torch.load(self.models_path + self.model_name, map_location=device)
         self.model.load_state_dict(state_dict)
 
 class DLTranscoderEvaluater:
@@ -179,7 +179,7 @@ class DLTranscoderEvaluater:
     
     def load_model(self, device):
         self.model = self.model.to(device)
-        state_dict = torch.load(self.models_path + self.model_name + ".pth", map_location=device)
+        state_dict = torch.load(self.models_path + self.model_name, map_location=device)
         self.model.load_state_dict(state_dict)
         
 #for Pinv only. Not a real trainer, just an evaluater.
@@ -300,15 +300,20 @@ class OracleEvaluater:
         self.eval_dataloader = torch.utils.data.DataLoader(self.eval_dataset, batch_size=batch_size, shuffle=False, num_workers=8, pin_memory=False, drop_last=False)
         tqdm_it=tqdm(self.eval_dataloader, desc='EVALUATION: ')
         
-        output_mels = np.memmap(self.outputs_path['mels']+'.dat', dtype=np.float64,
+        if self.label is None:
+            add_str = ''
+        else:
+            add_str = '_'+self.label
+
+        output_mels = np.memmap(self.outputs_path['mels']+add_str+'.dat', dtype=np.float64,
                     mode='w+', shape=(self.eval_dataset.n_tho_frames,
                     self.eval_dataset.n_mel_frames_per_file, self.eval_dataset.n_mels))
         
-        output_logits = np.memmap(self.outputs_path['logits']+'.dat', dtype=np.float64,
+        output_logits = np.memmap(self.outputs_path['logits']+add_str+'.dat', dtype=np.float64,
                     mode='w+', shape=(self.eval_dataset.n_tho_frames, self.classif_inference.n_labels))
-        
+
         if self.tvb:
-            output_logits_tvb = np.memmap(self.outputs_path['logits_tvb']+'_'+self.label+'.dat', dtype=np.float64,
+            output_logits_tvb = np.memmap(self.outputs_path['logits_tvb']+add_str+'.dat', dtype=np.float64,
                     mode='w+', shape=(self.eval_dataset.n_tho_frames, self.classif_inference.n_labels_tvb))
 
         for (idx, x, y, _) in tqdm_it:

@@ -1,5 +1,5 @@
 import subprocess
-import argparse
+import os
 
 ####################
 #DOWNLOAD PANN MODEL
@@ -14,6 +14,9 @@ subprocess.run(command, shell=True)
 ###################
 #DOWNLOAD EFFICIENT NETS
 output_dir = "./efficient_net"
+if not os.path.exists(output_dir):
+    # Create the directory recursively
+    os.makedirs(output_dir)
 
 file_name = "efficientnet-b0-355c32eb.pth"
 dl_link = "https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b0-355c32eb.pth"

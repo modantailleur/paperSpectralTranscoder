@@ -8,7 +8,6 @@ Created on Fri Sep 23 10:05:35 2022
 
 import csv
 import librosa
-import utils.bands_transform as bt
 import numpy as np
 import random
 from sklearn.model_selection import train_test_split
@@ -22,6 +21,7 @@ import sys
 # Add the parent directory of the project directory to the module search path
 project_parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(project_parent_dir)
+import utils.bands_transform as bt
 
 myseed = 71
 random.seed(myseed)
@@ -108,6 +108,9 @@ def main(config):
             
     if not os.path.exists(config.output_path + '/' + config.dataset_name):
         os.makedirs(config.output_path + '/' + config.dataset_name)
+    if not os.path.exists(config.setting_data_path):
+        os.makedirs(config.setting_data_path)
+
     # else:
     #     print(f'WARNING: everything will be deleted in path: {config.output_path / config.dataset_name}')
     #     _delete_everything_in_folder(config.output_path / config.dataset_name)
@@ -120,9 +123,6 @@ def main(config):
     np.save(config.output_path + '/' + config.dataset_name + '/' + (config.dataset_name + '_train_scene'), all_labels_train_coded)
     np.save(config.output_path + '/' + config.dataset_name + '/' + (config.dataset_name + '_train_fnames'), all_names_train)
     np.save(config.output_path + '/' + config.dataset_name + '/' + (config.dataset_name + '_train_metadata'), train_dataset)
-    print('XXXXXXXXX')
-    print(type(train_dataset))
-    print(train_dataset)
     del all_tho_data_train, all_mels_yamnet_data_train, all_mels_pann_data_train, all_labels_train, all_labels_train_coded
 
     all_tho_data_valid, all_mels_yamnet_data_valid, all_mels_pann_data_valid, all_labels_valid, all_names_valid = extract_spectrograms_from_dataset(valid_dataset, full_audio_dataset_path, tho_bt, mels_bt_pann, mels_bt_yamnet, p_label='valid')
@@ -368,7 +368,7 @@ if __name__ == "__main__":
 
     parser.add_argument('--dataset_name', type=str, default='Dcase-Task1-full',
                         help='The name of the dataset')
-    parser.add_argument('--audio_dataset_path', type=str, default='./',
+    parser.add_argument('--audio_dataset_path', type=str, default='.',
                         help='The name of the dataset')
     parser.add_argument('--audio_dataset_name', type=str, default='TAU-urban-acoustic-scenes-2020-mobile-development',
                         help='The name of the dataset')
@@ -384,8 +384,8 @@ if __name__ == "__main__":
     parser.add_argument('--eval_ratio', type=float, default=0.15,
                         help='The ratio of data to use for evaluation')
 
-    parser.add_argument('--dataset_type', type=str, default='test',
-                        help='Whether to filter the data')
+    parser.add_argument('--dataset_type', type=str, default='full',
+                        help='Whether to filter the data (full, urban, test)')
     parser.add_argument('--devices_keep', type=bool, default=['a'],
                         help='Which devices to keep (a,b,c etc...)')
     parser.add_argument('--split_by_city', type=bool, default=False,

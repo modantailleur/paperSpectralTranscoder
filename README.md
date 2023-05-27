@@ -4,10 +4,16 @@ This repo contains code for the paper: *Spectral Transcoder : Using Pretrained U
 
 ## Setup
 
-The codebase is developed with Python 3.7. Install requirements as follows:
+The codebase is developed with Python 3.9.15. Install requirements as follows:
 ```
 pip install -r requirements.txt
 ```
+Download the pre-trained models (PANN and Efficient Nets) with the following commands:
+
+```
+python3 download_pretrained_models.py
+```
+
 Please make sure that you have around 150G of free space in your hard disk to have enough space for the datasets and for running the experiments.
 
 ## Paper Results Replication
@@ -105,7 +111,8 @@ generate the logit data (classes predictions) from the classifiers and the trans
 models used for this generation are in the folder "reference_models" 
 
 ```
-python3 exp_classif_eval/create_logit_dataset.py
+python3 exp_classif_eval/create_logit_dataset.py --audio_dataset_name URBAN-SOUND-8K
+python3 exp_classif_eval/create_logit_dataset.py --audio_dataset_name SONYC-UST
 ```
 
 To launch the experiment and train the additional fully connected layers:

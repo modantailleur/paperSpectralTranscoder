@@ -4,8 +4,9 @@ import numpy as np
 import pandas as pd
 from pann.pann_mel_inference import PannMelInference
 from yamnet.yamnet_mel_inference import YamnetMelInference
-from sklearn.metrics import f1_score, accuracy_score, confusion_matrix, multilabel_confusion_matrix, precision_score, recall_score, average_precision_score, precision_recall_curve, auc, plot_confusion_matrix
-from classif_utils import accuracy_score_multilabel, precision_recall_curve_multilabel, sort_labels_by_score, load_sonyc_meta, load_urbansound8k_meta, accuracy_score_classification, folds_urbansound8k, folds_sonycust
+from sklearn.metrics import f1_score, accuracy_score, confusion_matrix, multilabel_confusion_matrix, precision_score, recall_score, average_precision_score, precision_recall_curve, auc
+from classif_utils import accuracy_score_multilabel, precision_recall_curve_multilabel, load_sonyc_meta, load_urbansound8k_meta, accuracy_score_classification, folds_urbansound8k, folds_sonycust
+from utils.util import sort_labels_by_score
 import torch
 import models as md
 from tqdm import tqdm
@@ -210,17 +211,16 @@ def get_score(model_name, data_dir, audio_dir, deep_name=None, top=8):
 
     """
     if 'SONYC-UST-LOGITS' in data_dir:
-        df, df_subclasses, weights, _ = load_sonyc_meta(audio_dir, data_dir, subset=['test'], verbose=True)
+        df, df_subclasses, weights, _ = load_sonyc_meta(audio_dir, data_dir, subset=['test'])
         idx_start = 1
         top = 8
         multilabel=True
     if 'URBAN-SOUND-8K-LOGITS' in data_dir:
-        df, df_subclasses, weights, _ = load_urbansound8k_meta(audio_dir, data_dir, verbose=True)
+        df, df_subclasses, weights, _ = load_urbansound8k_meta(audio_dir, data_dir)
         idx_start = 0
         top = 1
         multilabel=False
-    print('XXXXXXXXXXXX')
-    print(data_dir)
+
     key_list = list(df.columns)
     idx_dict = {key: [] for key in df.columns}
 

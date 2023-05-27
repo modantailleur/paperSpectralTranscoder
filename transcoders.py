@@ -117,7 +117,7 @@ class ThirdOctaveToMelTranscoder():
         if transcoder == "mlp":
             self.model = md.MLP(input_shape, output_shape, hl_1=mlp_hl_1, hl_2=mlp_hl_2)
 
-        state_dict = torch.load(model_path + "/" + model_name + ".pth", map_location=device)
+        state_dict = torch.load(model_path + "/" + model_name, map_location=device)
         self.model.load_state_dict(state_dict)
 
         # self.tho_tr = tho_tr

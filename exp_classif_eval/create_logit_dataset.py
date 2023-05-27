@@ -10,20 +10,17 @@ import sys
 # Add the parent directory of the project directory to the module search path
 project_parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(project_parent_dir)
-
-from pathlib import Path  # for directory listing
 import librosa
-import utils.bands_transform as bt
 import numpy as np
 import random
 import numpy as np
 import librosa
 import numpy as np
 import librosa
-from pathlib import Path
 import torch.utils.data
 import torch
-from classif_utils import sort_labels_by_score, load_sonyc_meta, load_urbansound8k_meta
+from classif_utils import load_sonyc_meta, load_urbansound8k_meta
+from utils.util import sort_labels_by_score
 from transcoders import ThirdOctaveToMelTranscoderPinv, ThirdOctaveToMelTranscoder
 import argparse
 

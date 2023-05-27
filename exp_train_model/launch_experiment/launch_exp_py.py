@@ -46,7 +46,7 @@ def main(config):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='full', help='Dataset used: full, urban , test')
-    parser.add_argument('--epoch', type=int, default=200, help='Number of epochs for training: 1, 10, 50, 100, 200')
+    parser.add_argument('--epoch', type=str, default='200', help='Number of epochs for training: 1, 10, 50, 100, 200')
     parser.add_argument('--exp_type', type=str, default='restricted', help='Experiment type: detailed, restricted. Restricted only launches the experiments that are shown on the Spectral Transcoder Dcase2023 paper')
     config = parser.parse_args()
     main(config)

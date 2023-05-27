@@ -1,4 +1,5 @@
 import tarfile
+import zipfile
 import glob
 import subprocess
 import shutil
@@ -18,8 +19,6 @@ def download_urbansound8k(dir):
     # GET ZIP FILES FROM ZENODO
 
     command = ['zenodo_get', doi, '-o', output_dir]
-    print('AAAAAAAAAAAAAA')
-    print(command)
     subprocess.run(command, check=True)
 
 
@@ -166,60 +165,30 @@ def download_tau(dir):
     ############
     # EXTRACT ZIP FILES
 
-    # Get a list of all .tar.gz files in the directory
-    tar_files = glob.glob(output_dir + '/*.tar.gz')
+    # Get a list of all .zip files in the directory
+    zip_files = glob.glob(output_dir + '/*.zip')
 
-    # Extract each .tar.gz file
-    for tar_file in tar_files:
-        with tarfile.open(tar_file, 'r:gz') as tar:
-            tar.extractall(output_dir)
+    # Extract each .zip file
+    for zip_file in zip_files:
+        with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+            zip_ref.extractall(output_dir)
 
     ###################
-    # REMOVE EVERY "TAU-*" FOLDER (and move audio files to a unique "audio" folder, and metadata to the root dataset folder)
+    # MOVE THE TAU DATASET SUBFOLDER TO THE PARENT FOLDER
 
-    # get the path of the audio subfolder
-    audio_path = output_dir + "audio/"
+    subdirectory_path = os.path.join(output_dir, 'TAU-urban-acoustic-scenes-2020-mobile-development')
 
-    # Create the destination directory if it doesn't exist
-    if not os.path.exists(audio_path):
-        os.makedirs(audio_path)
+    # Get the list of files and subdirectories inside the subfolder
+    contents = os.listdir(subdirectory_path)
 
-    # Get a list of all subdirectories in the source directory
-    subdirectories = [subdir for subdir in os.listdir(output_dir) if os.path.isdir(os.path.join(output_dir, subdir))]
+    # Move each item to the parent folder
+    for item in contents:
+        item_path = os.path.join(subdirectory_path, item)
+        destination_path = os.path.join(output_dir, item)
+        shutil.move(item_path, destination_path)
 
-    # extract the metadata and put them into the specified output path
-    for subdir in subdirectories:
-        if subdir.endswith('.meta'):
-            subdirectory_path = os.path.join(output_dir, subdir, 'TAU-urban-acoustic-scenes-2020-mobile-development')
-            subdir_to_delete = os.path.join(output_dir, subdir)
-
-            evaluation_setup_path = os.path.join(subdirectory_path, 'evaluation_setup')
-            meta_path = os.path.join(subdirectory_path, 'meta.csv')
-            shutil.move(meta_path, output_dir)  
-            shutil.move(evaluation_setup_path, output_dir)  
-            
-            # Delete the subdirectory
-            shutil.rmtree(subdir_to_delete)
-
-    # Get a list of all subdirectories in the source directory
-    subdirectories = [subdir for subdir in os.listdir(output_dir) if os.path.isdir(os.path.join(output_dir, subdir))]
-
-    # Iterate over the subdirectories
-    for subdir in subdirectories:
-        if ((subdir.startswith('TAU-')) & ("audio" in subdir)):
-            print(type(subdir))
-            subdirectory_path = os.path.join(output_dir, subdir, 'TAU-urban-acoustic-scenes-2020-mobile-development/audio')
-            subdir_to_delete = os.path.join(output_dir, subdir)
-
-            # Get a list of all files in the subdirectory
-            files = [file for file in os.listdir(subdirectory_path) if os.path.isfile(os.path.join(subdirectory_path, file))]
-            
-            # Move each audio file to the destination directory
-            for file in files:
-                file_path = os.path.join(subdirectory_path, file)
-                shutil.move(file_path, audio_path)
-
-            shutil.rmtree(subdir_to_delete)
+    # Remove the now empty subfolder
+    os.rmdir(subdirectory_path)
 
     print("Extraction complete.")
 

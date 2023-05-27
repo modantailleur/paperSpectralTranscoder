@@ -186,7 +186,7 @@ def evaluate_dl_model(setting_exp):
             model = md.YAMNETPINV(input_shape=input_shape, output_shape=output_shape, tho_tr=tho_tr, mels_tr=mels_tr, dtype=setting_exp.dtype, device=setting_exp.device)
     
     if setting_exp.transcoder in ['effnet_b0', 'effnet_b7']:
-        model = md.EffNet(input_shape=input_shape, output_shape=output_shape, tho_tr=tho_tr, mels_tr=mels_tr, effnet_type=setting_exp.transcoder, dtype=setting_exp.dtype, device=setting_exp.device)
+        model = md.EffNet(mels_tr=mels_tr, effnet_type=setting_exp.transcoder, dtype=setting_exp.dtype, device=setting_exp.device)
 
     if setting_exp.transcoder not in ['effnet_b0', 'effnet_b7', 'self']:
         evaluater = DLTranscoderEvaluater(setting_exp.setting_data, model, setting_exp.model_path, setting_exp.model_name, 

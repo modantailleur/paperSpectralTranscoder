@@ -288,9 +288,9 @@ class SettingExp(Setting):
         self.tho_time = True
         self.mel_template = None
         if setting.dataset == 'full':
-            self.config = "Dcase-Task1-FullDataset"
+            self.config = "Dcase-Task1-full"
         if setting.dataset == 'urban':
-            self.config = "Dcase-Task1-UrbanDataset"    
+            self.config = "Dcase-Task1-urban"    
         if setting.dataset == 'TEST':
             self.config = "Dcase-Task1-TEST"    
         if setting.dataset == 'urban_mel_time':
