@@ -144,7 +144,7 @@ The generated wav files will be placed in the generated_audio folder. It will co
 
 Figure below (run plot_spectro_dcase2023.py to replicate the figure) shows the transcoding result with several transcoding algorithm (PINV transcoder, CNN-mels transcoder and CNN-logits transcoder) on a 1s audio excerpt from the evaluation dataset.
 
-<img src="results/spectro_dcase_2023.png" width=600>
+<img src="results/spectro_dcase_2023.png" width=1000>
 
 Being able to transcode Mel spectrograms into third-octave spectrograms easily would have been convenient for training a deep learning model. This would for example allow an auto-encoding approach. Nevertheless, this task is not obvious, even if there are more Mel bins in Mel spectrograms. Indeed, figures below (run plot_thirdo_mels_bands_repartition.py to replicate the figure) shows the repartition of the Mel spectral bands and the third-octave bands on the frequency axis. As there are more third-octave bands in the lower frequencies (below 1kHz) than there are Mel bands, we cannot easily transcode Mels to third-octaves, particularly in that part of the spectrum. 
 
