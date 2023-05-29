@@ -144,11 +144,11 @@ The generated wav files will be placed in the generated_audio folder. It will co
 
 Figure below (run plot_spectro_dcase2023.py to replicate the figure) shows the transcoding result with several transcoding algorithm (PINV transcoder, CNN-mels transcoder and CNN-logits transcoder) on a 1s audio excerpt from the evaluation dataset.
 
-<img src="resources/spectro_dcase_2023.png" width=400>
+<img src="results/spectro_dcase_2023.png" width=400>
 
 Being able to transcode Mel spectrograms into third-octave spectrograms easily would have been convenient for training a deep learning model. This would for example allow an auto-encoding approach. Nevertheless, this task is not obvious, even if there are more Mel bins in Mel spectrograms. Indeed, figures below (run plot_thirdo_mels_bands_repartition.py to replicate the figure) shows the repartition of the Mel spectral bands and the third-octave bands on the frequency axis. As there are more third-octave bands in the lower frequencies (below 1kHz) than there are Mel bands, we cannot easily transcode Mels to third-octaves, particularly in that part of the spectrum. 
 
-<img src="resources/thirdo_mels_bands_repartition.png" width=400>
+<img src="results/thirdo_mels_bands_repartition.png" width=400>
 
 As stated in the paper *Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations*, we propose a revised version of F.Gontier et al. aggregation method proposed in the paper [Polyphonic training set synthesis improves self-supervised urban sound classification](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/). During inference, some of the classes that were considered relevant for each SONYC-UST class are grouped. The groups made during inference are the one in the files exp_classif_eval/sub_classes_sonyc_ust.xlsx and exp_classif_eval/sub_classes_urbansound8k.xlsx. 
 
@@ -156,8 +156,8 @@ In Gontier et al. 's paper, if in the highest top 3 predictions of YamNet one pr
 
 The results of this method, compared to the method where we add fully connected layers at the output of the pre-trained models (method explained in the paper), are shown in the table below. Where deep is set to 1, it means that fully connected layers are used, where deep is set to 0, it means that the aggregation method mentioned in the previous paragraph is used.
 
-<img src="resources/results_classif_sonycust.png" width=400>
-<img src="resources/results_classif_urbansound8k.png" width=400>
+<img src="results/results_classif_sonycust.png" width=400>
+<img src="results/results_classif_urbansound8k.png" width=400>
 
 The images above can be replicated using the following commands (after running part 2-b):
 ```
