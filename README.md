@@ -32,7 +32,7 @@ Those datasets must imperatively be downloaded through this command, as the name
 python3 download_datasets.py --output mypath
 ```
 
-### Experiment: training models
+### a) Experiment: training models
 
 Execute the following commands to generate third-octave and Mel data from the [TAU Urban Acoustic Scenes 2020 Mobile](https://dcase.community/challenge2021/task-acoustic-scene-classification) dataset. Those data will be used to train and evaluate the models in the subsequent sections. 
 
@@ -47,7 +47,7 @@ python3 exp_train_model/create_mel_tho_dataset.py --output_path yourpath/
 ```
 
 The experiment plan is developped with [doce](https://doce.readthedocs.io/en/latest/). 
-To reproduce only the results shown in the paper, please use the following commands:
+To reproduce only the results shown in the paper, please use the following commands (about 50h of calculation on a single GPU):
 
 ```
 python3 exp_train_model/launch_experiment/launch_exp_py.py --exp_type restricted
@@ -104,7 +104,7 @@ python3 exp_train_model/plot_training_curve.py
 ```
 
 
-### Experiment: Evaluate models on classification datasets
+### b) Experiment: Evaluate models on classification datasets
 
 To evaluate the model on [UrbanSound8k](https://urbansounddataset.weebly.com/urbansound8k.html) and [SONYC-UST](https://zenodo.org/record/3966543#.ZFtddpHP1kg), please execute the following commands to
 generate the logit data (classes predictions) from the classifiers and the transcoded classifiers. The
@@ -125,8 +125,8 @@ python3 exp_classif_eval/main_doce_score.py -s deep/ -c
 Then, you can export the results of the experiment ("results_classif_urbansound8k.png", "results_classif_sonycust.png") in a png format in the "export" folder using the following commands:
 
 ```
-python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'URBAN-SOUND-8K'}" -d [0] -e results_classif_urbansound8k.png
-python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'SONYC-UST'}" -d [1] -e results_classif_sonycust.png
+python3 exp_classif_eval/main_doce_score.py -s deep/dataset=URBAN-SOUND-8K -d [0] -e results_classif_urbansound8k.png
+python3 exp_classif_eval/main_doce_score.py -s deep/dataset=SONYC-UST -d [1] -e results_classif_sonycust.png
 ```
 
 
@@ -142,10 +142,26 @@ The generated wav files will be placed in the generated_audio folder. It will co
 
 ## 4 - Complementary experiment results
 
-The spectrograms shown in the paper are available in results/spectro_dcase_2023.png (run plot_spectro_dcase2023.py to replicate the figure).
+Figure below (run plot_spectro_dcase2023.py to replicate the figure) shows the transcoding result with several transcoding algorithm (PINV transcoder, CNN-mels transcoder and CNN-logits transcoder) on a 1s audio excerpt from the evaluation dataset.
 
-The figure results/thirdo_mels_bands_repartition.png (run plot_thirdo_mels_bands_repartition.py to replicate the figure) shows the repartition of the Mel spectrograms bands and the third-octave bands on the frequency axis. This repartition clearly shows that there are more third-octave bands in the lower frequencies (below 1kHz) than there are Mel bands. This demonstrates that the task of transforming Mel bands into third-octave bands is not obvious, even if there are more Mel bins in Mel spectrograms.
+<img src="resources/spectro_dcase_2023.png" width=400>
 
-As stated in the paper *Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations*, we propose a revised version of F.Gontier et al. aggregation method proposed in the paper [Polyphonic training set synthesis improves self-supervised urban sound classification](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/). During inference, some of the classes that were considered relevant for each SONYC-UST class are grouped. The groups made during inference are the one in the files exp_classif_eval/sub_classes_sonyc_ust.xlsx and exp_classif_eval/sub_classes_urbansound8k.xlsx. In Gontier et al. 's paper, if in the highest top 3 predictions of YamNet one predicted class among the 527 belongs to one of the meta-classes (traffic, voice, birds in their paper), the meta-class was considered present. Instead of taking the top 3, the top 8 classes of SONYC-UST is taken into account for the aggregation. In our case, we believe that Gontier et al.'s method can result in some false negatives for multi-label classification. For example, if there are is some music in the audio excerpt, it is very likely that the 8 first predicted classes will be related to music (ex: 1:Music, 2:Musical Instrument, 3:Guitar, 4:Pop Music, 5:Drum, 6:Piano, 7:Bass Guitar, 8:Acoustic Guitar), and so the next prediction at position 9 will not be considered present in the audio excerpt (ex: 9: Speech). We propose to group classes together during inference, so that it leads to less false negatives (ex: 1:SONYC-UST Music 2: SONYC-UST HumanVoice, 3: Mosquito etc...). This lead to a higher mAUC than Gontier et al's method for SONYC-UST. The same kind of aggregation is made for UrbanSound8k, but in a more simple multi-class classification paradigm (the meta-class is present if one of its classes has the highest score). 
+Being able to transcode Mel spectrograms into third-octave spectrograms easily would have been convenient for training a deep learning model. This would for example allow an auto-encoding approach. Nevertheless, this task is not obvious, even if there are more Mel bins in Mel spectrograms. Indeed, figures below (run plot_thirdo_mels_bands_repartition.py to replicate the figure) shows the repartition of the Mel spectral bands and the third-octave bands on the frequency axis. As there are more third-octave bands in the lower frequencies (below 1kHz) than there are Mel bands, we cannot easily transcode Mels to third-octaves, particularly in that part of the spectrum. 
 
+<img src="resources/thirdo_mels_bands_repartition.png" width=400>
+
+As stated in the paper *Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations*, we propose a revised version of F.Gontier et al. aggregation method proposed in the paper [Polyphonic training set synthesis improves self-supervised urban sound classification](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/). During inference, some of the classes that were considered relevant for each SONYC-UST class are grouped. The groups made during inference are the one in the files exp_classif_eval/sub_classes_sonyc_ust.xlsx and exp_classif_eval/sub_classes_urbansound8k.xlsx. 
+
+In Gontier et al. 's paper, if in the highest top 3 predictions of YamNet one predicted class among the 527 belongs to one of the meta-classes (traffic, voice, birds in their paper), the meta-class was considered present. Instead of taking the top 3, the top 8 classes of SONYC-UST is taken into account for the aggregation. In our case, we believe that Gontier et al.'s method can result in some false negatives for multi-label classification. For example, if there are is some music in the audio excerpt, it is very likely that the 8 first predicted classes will be related to music (ex: 1:Music, 2:Musical Instrument, 3:Guitar, 4:Pop Music, 5:Drum, 6:Piano, 7:Bass Guitar, 8:Acoustic Guitar), and so the next prediction at position 9 will not be considered present in the audio excerpt (ex: 9: Speech). We propose to group classes together during inference, so that it leads to less false negatives (ex: 1:SONYC-UST Music 2: SONYC-UST HumanVoice, 3: Mosquito etc...). This lead to a higher mAUC than Gontier et al's method for SONYC-UST. The same kind of aggregation is made for UrbanSound8k, but in a more simple multi-class classification paradigm (the meta-class is present if one of its classes has the highest score). 
+
+The results of this method, compared to the method where we add fully connected layers at the output of the pre-trained models (method explained in the paper), are shown in the table below. Where deep is set to 1, it means that fully connected layers are used, where deep is set to 0, it means that the aggregation method mentioned in the previous paragraph is used.
+
+<img src="resources/results_classif_sonycust.png" width=400>
+<img src="resources/results_classif_urbansound8k.png" width=400>
+
+The images above can be replicated using the following commands (after running part 2-b):
+```
+python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'URBAN-SOUND-8K'}" -d [0] -e results_classif_urbansound8k.png
+python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'SONYC-UST'}" -d [1] -e results_classif_sonycust.png
+```
 

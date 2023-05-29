@@ -13,9 +13,10 @@ mel_filter_pann_index = np.argmax(mel_filter_pann, axis=1)*scaling_factor
 tho_filter_index = np.argmax(tho_filter, axis=1)*scaling_factor
 plt.xlabel('frequency bin')
 plt.ylabel('bin center frequency (kHz)')
-plt.scatter(np.arange(1,len(mel_filter_yamnet_index)+1), mel_filter_yamnet_index, marker="+")
-plt.scatter(np.arange(1,len(mel_filter_pann_index)+1), mel_filter_pann_index, marker="+")
-plt.scatter(np.arange(1,len(tho_filter_index)+1), tho_filter_index, marker="+")
+plt.scatter(np.arange(1,len(mel_filter_yamnet_index)+1), mel_filter_yamnet_index, marker="+", label = "YAMNet Mels")
+plt.scatter(np.arange(1,len(mel_filter_pann_index)+1), mel_filter_pann_index, marker="+", label="PANN Mels")
+plt.scatter(np.arange(1,len(tho_filter_index)+1), tho_filter_index, marker="+", label="Third-Octaves (Cense Lorient)")
+plt.legend(ncol=2, bbox_to_anchor=(0, 1), loc='upper left')
 plt.ylim(0, 14)
 plt.xlim(0,64)
 plt.show()
