@@ -1,8 +1,8 @@
 # Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Arbitrary Spectral Representations
 
-This repo contains code for the paper: *Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations*. Results of the paper can be reproduced looking at section ... . Some audio samples can be generated looking at section ... . Some complementary experiment results are in section ... 
+This repo contains code for the paper: *Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations*. Results of the paper can be reproduced looking at section 2. Some audio samples can be generated looking at section 3. Some complementary experiment results are in section 4. 
 
-## Setup
+## 1 - Setup
 
 The codebase is developed with Python 3.9.15. Install requirements as follows:
 ```
@@ -16,7 +16,7 @@ python3 download_pretrained_models.py
 
 Please make sure that you have around 150G of free space in your hard disk to have enough space for the datasets and for running the experiments.
 
-## Paper Results Replication
+## 2 - Paper Results Replication
 
 ### Datasets download
 
@@ -125,12 +125,12 @@ python3 exp_classif_eval/main_doce_score.py -s deep/ -c
 Then, you can export the results of the experiment ("results_classif_urbansound8k.png", "results_classif_sonycust.png") in a png format in the "export" folder using the following commands:
 
 ```
-python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'URBAN-SOUND-8K'}" -d -e results_classif_urbansound8k.png
-python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'SONYC-UST'}" -d -e results_classif_sonycust.png
+python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'URBAN-SOUND-8K'}" -d [0] -e results_classif_urbansound8k.png
+python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'SONYC-UST'}" -d [1] -e results_classif_sonycust.png
 ```
 
 
-## Audio generation
+## 3 - Audio generation
 
 As Mel spectrograms can be inverted with librosa using the feature [mel_to_audio](https://librosa.org/doc/main/generated/librosa.feature.inverse.mel_to_audio.html), we can also invert transcoded Mel spectrograms and thus retrieve audio from third-octave spectrograms. Some audio examples obtained on [freesound](https://freesound.org/) are available in the audio and generated_audio folders. You can try with your own audio files, by putting your wav file ("myfile.wav") in the audio folder and executing this command:
 
@@ -140,14 +140,12 @@ python3 generate_audio.py myfile.wav
 
 The generated wav files will be placed in the generated_audio folder. It will contain the original file (myfile/myfile_original.wav) the audio file generated from PANN 32ms Mel Spectrogram (myfile/myfile_generated_from_groundtruth_mel.wav), the audio file generated from the PINV transcoder (myfile/myfile_generated_from_pinv.wav), and finally the audoo file generated from the CNN transcoder (myfile/myfile_generated_from_transcoder.wav). 
 
-## Complementary experiment results
+## 4 - Complementary experiment results
 
-To reproduce the spectrogram examples shown in the paper, please use the following code:
+The spectrograms shown in the paper are available in results/spectro_dcase_2023.png (run plot_spectro_dcase2023.py to replicate the figure).
 
-```
-python3 plot_spectro_dcase2023.py
-```
+The figure results/thirdo_mels_bands_repartition.png (run plot_thirdo_mels_bands_repartition.py to replicate the figure) shows the repartition of the Mel spectrograms bands and the third-octave bands on the frequency axis. This repartition clearly shows that there are more third-octave bands in the lower frequencies (below 1kHz) than there are Mel bands. This demonstrates that the task of transforming Mel bands into third-octave bands is not obvious, even if there are more Mel bins in Mel spectrograms.
 
-Some training curves, and other complementary results are shown in the results folder. This includes a revised version of F.Gontier et al. aggregation method proposed in the paper [Polyphonic training set synthesis improves self-supervised urban sound classification](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/). Instead of taking the top 3, the top 8 classes of SONYC-UST is taken into account for the aggregation. During inference, some of the classes that were considered relevant for each SONYC-UST class are grouped, so that the vector of size 527 becomes a vector of size ... . 
+As stated in the paper *Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations*, we propose a revised version of F.Gontier et al. aggregation method proposed in the paper [Polyphonic training set synthesis improves self-supervised urban sound classification](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/). During inference, some of the classes that were considered relevant for each SONYC-UST class are grouped. The groups made during inference are the one in the files exp_classif_eval/sub_classes_sonyc_ust.xlsx and exp_classif_eval/sub_classes_urbansound8k.xlsx. In Gontier et al. 's paper, if in the highest top 3 predictions of YamNet one predicted class among the 527 belongs to one of the meta-classes (traffic, voice, birds in their paper), the meta-class was considered present. Instead of taking the top 3, the top 8 classes of SONYC-UST is taken into account for the aggregation. In our case, we believe that Gontier et al.'s method can result in some false negatives for multi-label classification. For example, if there are is some music in the audio excerpt, it is very likely that the 8 first predicted classes will be related to music (ex: 1:Music, 2:Musical Instrument, 3:Guitar, 4:Pop Music, 5:Drum, 6:Piano, 7:Bass Guitar, 8:Acoustic Guitar), and so the next prediction at position 9 will not be considered present in the audio excerpt (ex: 9: Speech). We propose to group classes together during inference, so that it leads to less false negatives (ex: 1:SONYC-UST Music 2: SONYC-UST HumanVoice, 3: Mosquito etc...). This lead to a higher mAUC than Gontier et al's method for SONYC-UST. The same kind of aggregation is made for UrbanSound8k, but in a more simple multi-class classification paradigm (the meta-class is present if one of its classes has the highest score). 
 
 

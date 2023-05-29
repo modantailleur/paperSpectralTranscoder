@@ -56,7 +56,6 @@ experiment.add_plan('deep',
   dataset = ['SONYC-UST', 'URBAN-SOUND-8K'],
 )
 
-#traffic correlation
 experiment.set_metric(
   name = 'acc_classif',
   path = 'metrics',
@@ -125,8 +124,6 @@ def step(setting, experiment):
                 pickle.dump(losses_train_fold, f)
             with open((experiment.path.loss+setting.identifier()+'_loss_eval'), 'wb') as f:
                  pickle.dump(losses_eval_fold, f)
-            # np.save(experiment.path.loss+setting.identifier()+'_loss_train.npy', losses_train_fold)
-            # np.save(experiment.path.loss+setting.identifier()+'_loss_eval.npy', losses_eval_fold)
             with open((experiment.path.model+setting.identifier()+'_model_fold'), 'wb') as f:
                 pickle.dump(trainer.model_fold, f)
 
