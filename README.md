@@ -1,6 +1,6 @@
 # Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Arbitrary Spectral Representations
 
-This repo contains code for the paper: *Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations* [1]. It uses YAMNet[2] and PANN[3] pre-trained models in a teacher student approach to transcode 125ms third-octave spectrogral representations into 32ms Mel represnetations. Results of the paper can be reproduced looking at section 2. Some audio samples can be generated looking at section 3. Some complementary experiment results are in section 4. 
+This repo contains code for the paper: **Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations** [1]. It uses YAMNet [2] and PANN [3] pre-trained models in a teacher student approach to transcode 125ms third-octave spectrogral representations into 32ms Mel represnetations. Results of the paper can be reproduced looking at section 2. Some audio samples can be generated looking at section 3. Some complementary experiment results are in section 4. 
 
 ## 1 - Setup Instructions
 
@@ -166,22 +166,20 @@ python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'SONYC-UST'}" -d [1] 
 [1] link to our paper
 
 [2] Tensorflow, “Sound classification with yamnet,” 2020, last
-access on 09/05/2023. [Online]. Available: [https://github.com/
-tensorflow/models/tree/master/research/audioset/yamnet/](https://github.com/
-tensorflow/models/tree/master/research/audioset/yamnet/)
+access on 09/05/2023. [Online]. Source Code: [https://github.com/tensorflow/models/tree/master/research/audioset/yamnet/](https://github.com/tensorflow/models/tree/master/research/audioset/yamnet/).
 
 [3] Q. Kong, Y. Cao, T. Iqbal, Y. Wang, W. Wang, and M. D.
 Plumbley, “Panns: Large-scale pretrained audio neural net-
 works for audio pattern recognition,” IEEE/ACM Transac-
 tions on Audio, Speech, and Language Processing, vol. 28,
-pp. 2880–2894, 2020, publisher: IEEE. Available: [https://github.com/qiuqiangkong/audioset_tagging_cnn](https://github.com/qiuqiangkong/audioset_tagging_cnn)
+pp. 2880–2894, 2020, publisher: IEEE. Source Code: [https://github.com/qiuqiangkong/audioset_tagging_cnn](https://github.com/qiuqiangkong/audioset_tagging_cnn). Available: [https://arxiv.org/abs/1912.10211](https://arxiv.org/abs/1912.10211).
 
-[4] [ F. Gontier, V. Lostanlen, M. Lagrange, N. Fortin, C. La-
+[4] F. Gontier, V. Lostanlen, M. Lagrange, N. Fortin, C. La-
 vandier, and J.-F. Petiot, “Polyphonic training set synthe-
 sis improves self-supervised urban sound classification,” The
 Journal of the Acoustical Society of America, vol. 149, no. 6,
 pp. 4309–4326, 2021, publisher: Acoustical Society of Amer-
-ica]. Available: [https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/)
+ica. Available: [https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/).
 
 ## INTERNAL DEPENDENCIES
 
