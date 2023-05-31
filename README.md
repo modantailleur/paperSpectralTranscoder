@@ -185,4 +185,4 @@ ica. Available: [https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863
 
 This repo contains a `yamnet` folder which is a pytorch port of the original YAMNet ([link](https://github.com/w-hc/torch_audioset)). It also contains a `pann` folder which is the original PANN repository ([link](https://github.com/qiuqiangkong/audioset_tagging_cnn). We have extended the source codes with supplementary functionalities that are significant for our research.
 
-The doce folder of this repo contains the source code from the [doce project](https://doce.readthedocs.io/en/latest/) (downloaded the 31/05/2023). As this project is still in progress, doce is not present in the `requirements.txt` file, in order to ensure the reproductibility of the results.
+The `doce` folder of this repo contains the source code from the [doce project](https://doce.readthedocs.io/en/latest/) (downloaded the 31/05/2023). As this project is still in progress, doce is not present in the `requirements.txt` file, in order to ensure the reproductibility of the results.
