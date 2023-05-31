@@ -1,6 +1,6 @@
 # Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Arbitrary Spectral Representations
 
-This repo contains code for the paper: **Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations** [1]. It uses YAMNet [2] and PANN [3] pre-trained models in a teacher student approach to transcode 125ms third-octave spectrogral representations into 32ms Mel represnetations. Results of the paper can be reproduced looking at section 2. Some audio samples can be generated looking at section 3. Some complementary experiment results are in section 4. 
+This repo contains code for the paper: **Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations** [1]. It uses YAMNet [2] and PANN [3] pre-trained models in a teacher student approach to transcode 125ms third-octave spectrogral representations into 32ms Mel representations. Results of the paper can be reproduced looking at section 2. Some audio samples can be generated looking at section 3. Some complementary experiment results are in section 4. 
 
 ## 1 - Setup Instructions
 
@@ -83,7 +83,7 @@ python3 exp_train_model/export_experiment_results.py
 
 The results will show in folder `export` and will be named `results_training_PANN.png` and `results_training_YamNet.png`
 
-If you want to show more detailed results, please read doce documentation, and select 
+If you want to show more detailed results, please read [doce tutorial](https://doce.readthedocs.io/en/latest/tutorial.html), and select 
 the plan and the parameters you want to show. Here is a command example,
 which will create an export file `myresults.png` in the `export` folder:
 
@@ -110,8 +110,13 @@ python3 exp_classif_eval/create_logit_dataset.py --audio_dataset_name SONYC-UST
 
 The models used for this experiment are in the folder `reference_models`. To launch the experiment and train the additional fully connected layers, execute the following commands:
 
+First command to execute:
 ```
 python3 exp_classif_eval/main_doce_score.py -s reference/ -c
+```
+
+Second command to execute:
+```
 python3 exp_classif_eval/main_doce_score.py -s deep/ -c
 ```
 
@@ -181,7 +186,7 @@ Journal of the Acoustical Society of America, vol. 149, no. 6,
 pp. 4309–4326, 2021, publisher: Acoustical Society of Amer-
 ica. Available: [https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/](https://hal-nantes-universite.archives-ouvertes.fr/hal-03262863/).
 
-## INTERNAL DEPENDENCIES
+## DEPENDENCIES
 
 This repo contains a `yamnet` folder which is a pytorch port of the original YAMNet ([link](https://github.com/w-hc/torch_audioset)). It also contains a `pann` folder which is the original PANN repository ([link](https://github.com/qiuqiangkong/audioset_tagging_cnn)). We have extended the source codes with supplementary functionalities that are significant for our research.
 
