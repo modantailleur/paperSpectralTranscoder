@@ -22,7 +22,8 @@ import argparse
 def main(config):
     MODEL_PATH = "./reference_models"
     filename = config.audio_file
-    model_name = 'classifier=PANN+dataset=full+dilation=1+epoch=200+kernel_size=5+learning_rate=-3+nb_channels=64+nb_layers=5+prop_logit=100+step=train+transcoder=cnn_pinv+ts=1_model'
+    cnn_logits_name = 'classifier=PANN+dataset=full+dilation=1+epoch=200+kernel_size=5+learning_rate=-3+nb_channels=64+nb_layers=5+prop_logit=100+step=train+transcoder=cnn_pinv+ts=1_model'
+    cnn_mels_name = 'classifier=PANN+dataset=full+dilation=1+epoch=200+kernel_size=5+learning_rate=-3+nb_channels=64+nb_layers=5+step=train+transcoder=cnn_pinv+ts=0_model'
     transcoder = 'cnn_pinv'
     dtype=torch.FloatTensor
     spec = True
@@ -49,35 +50,39 @@ def main(config):
     x_32k = np.array(x_32k[0])
     x_32k = librosa.util.normalize(x_32k)
 
-    transcoder_deep_pann = ThirdOctaveToMelTranscoder(transcoder, model_name, MODEL_PATH, device=device)
-    transcoder_pinv_pann = ThirdOctaveToMelTranscoderPinv(MODEL_PATH, model_name, device, classifier="PANN")
+    transcoder_cnn_logits_pann = ThirdOctaveToMelTranscoder(transcoder, cnn_logits_name, MODEL_PATH, device=device)
+    transcoder_cnn_mels_pann = ThirdOctaveToMelTranscoder(transcoder, cnn_mels_name, MODEL_PATH, device=device)
+    transcoder_pinv_pann = ThirdOctaveToMelTranscoderPinv(MODEL_PATH, cnn_logits_name, device, classifier="PANN")
 
     x_32k = librosa.load(full_filename, sr=fs)[0]
     x_32k = librosa.util.normalize(x_32k)
 
-    x_mels_pann_cnn = transcoder_deep_pann.transcode_from_wav_entire_file(x_32k)
-    x_logit_pann_cnn = transcoder_deep_pann.mels_to_logit_entire_file(x_mels_pann_cnn, slice=False)
-    x_mels_pann_gt = transcoder_deep_pann.mels_tr.wave_to_mels(x_32k)
-    x_logit_pann_gt = transcoder_deep_pann.mels_to_logit_entire_file(x_mels_pann_gt, slice=False)
+    x_mels_pann_cnn_logits = transcoder_cnn_logits_pann.transcode_from_wav_entire_file(x_32k)
+    x_logit_pann_cnn_logits = transcoder_cnn_logits_pann.mels_to_logit_entire_file(x_mels_pann_cnn_logits, slice=False)
+    x_mels_pann_gt = transcoder_cnn_logits_pann.mels_tr.wave_to_mels(x_32k)
+    x_logit_pann_gt = transcoder_cnn_logits_pann.mels_to_logit_entire_file(x_mels_pann_gt, slice=False)
     x_mels_pann_pinv = transcoder_pinv_pann.transcode_from_wav(x_32k)
+    x_mels_pann_cnn_mels = transcoder_cnn_mels_pann.transcode_from_wav_entire_file(x_32k)
 
     print('\n XXXXXXXXX ORIGINAL PANN CLASSIFIER (MEL INPUT) XXXXXXXXXXX')
-    labels = sort_labels_by_score(np.mean(x_logit_pann_gt, axis=1), transcoder_deep_pann.classif_inference.labels_str)[1][:10]
-    scores = sort_labels_by_score(np.mean(x_logit_pann_gt, axis=1), transcoder_deep_pann.classif_inference.labels_str)[0][:10]
+    labels = sort_labels_by_score(np.mean(x_logit_pann_gt, axis=1), transcoder_cnn_logits_pann.classif_inference.labels_str)[1][:10]
+    scores = sort_labels_by_score(np.mean(x_logit_pann_gt, axis=1), transcoder_cnn_logits_pann.classif_inference.labels_str)[0][:10]
     for k in range(len(labels)):
         print(f'{labels[k]} : {round(float(scores[k]), 2)}')
 
-    print('\n XXXXXXXXXXXX TRANSCODED PANN CLASSIFIER (THIRD-OCTAVE INPUT) XXXXXXXXXXXX')
-    labels = sort_labels_by_score(np.mean(x_logit_pann_cnn, axis=1), transcoder_deep_pann.classif_inference.labels_str)[1][:10]
-    scores = sort_labels_by_score(np.mean(x_logit_pann_cnn, axis=1), transcoder_deep_pann.classif_inference.labels_str)[0][:10]
+    print('\n XXXXXXXXXXXX TRANSCODED PANN CLASSIFIER (THIRD-OCTAVE INPUT) USING CNN-LOGITS TRANSCODER XXXXXXXXXXXX')
+    labels = sort_labels_by_score(np.mean(x_logit_pann_cnn_logits, axis=1), transcoder_cnn_logits_pann.classif_inference.labels_str)[1][:10]
+    scores = sort_labels_by_score(np.mean(x_logit_pann_cnn_logits, axis=1), transcoder_cnn_logits_pann.classif_inference.labels_str)[0][:10]
     for k in range(len(labels)):
         print(f'{labels[k]} : {round(float(scores[k]), 2)}')
 
-    input_gen_deep = x_mels_pann_cnn
+    input_gen_cnn_logits = x_mels_pann_cnn_logits
+    input_gen_cnn_mels = x_mels_pann_cnn_mels
     input_gen_pinv = x_mels_pann_pinv
     input = x_mels_pann_gt
 
-    y_gen_deep = librosa.feature.inverse.mel_to_audio(input_gen_deep, sr=32000, n_fft=1024, hop_length=320, win_length=1024)
+    y_gen_cnn_logits = librosa.feature.inverse.mel_to_audio(input_gen_cnn_logits, sr=32000, n_fft=1024, hop_length=320, win_length=1024)
+    y_gen_cnn_mels = librosa.feature.inverse.mel_to_audio(input_gen_cnn_mels, sr=32000, n_fft=1024, hop_length=320, win_length=1024)
     y_gen_pinv = librosa.feature.inverse.mel_to_audio(input_gen_pinv, sr=32000, n_fft=1024, hop_length=320, win_length=1024)
     y = librosa.feature.inverse.mel_to_audio(input, sr=32000, n_fft=1024, hop_length=320, win_length=1024)
 
@@ -88,7 +93,8 @@ def main(config):
     else:
         print(f"Directory '{save_path}' already exists.")
 
-    write(save_path + "/" +filename[:-4]+"_generated_from_transcoder.wav", 32000, y_gen_deep)
+    write(save_path + "/" +filename[:-4]+"_generated_from_cnn_logits.wav", 32000, y_gen_cnn_logits)
+    write(save_path + "/" +filename[:-4]+"_generated_from_cnn_mels.wav", 32000, y_gen_cnn_mels)
     write(save_path + "/" +filename[:-4]+"_generated_from_pinv.wav", 32000, y_gen_pinv)
     write(save_path + "/" +filename[:-4]+"_generated_from_groundtruth_mel.wav", 32000, y)
     write(save_path + "/" +filename[:-4]+"_original.wav", 32000, x_32k)

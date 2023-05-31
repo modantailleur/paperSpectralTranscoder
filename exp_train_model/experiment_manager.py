@@ -415,7 +415,7 @@ def compute_metrics(setting_exp):
         L = []
         for k in range(model_logit.shape[0]):
             L.append(lf_kl(torch.log(model_logit_avg[k]+epsilon), torch.log(oracle_logit_avg[k]+epsilon)))
-        batch_logit_kl = torch.Tensor(L)
+        batch_logit_kl = torch.Tensor(L).to(setting_exp.device)
 
         logit_kl = torch.cat((logit_kl, batch_logit_kl))
 
@@ -424,7 +424,7 @@ def compute_metrics(setting_exp):
         L = []
         for k in range(model_logit.shape[0]):
             L.append(lf_kl(torch.log(model_logit_tvb_avg[k]+epsilon), torch.log(oracle_logit_tvb_avg[k]+epsilon)))
-        batch_logit_tvb_kl = torch.Tensor(L)
+        batch_logit_tvb_kl = torch.Tensor(L).to(setting_exp.device)
         logit_tvb_kl = torch.cat((logit_tvb_kl, batch_logit_tvb_kl))
 
     # calculate the weighted mean top1 of the accuracy accross each class (ptopafc weighted) --> accuracy weighted by class 
