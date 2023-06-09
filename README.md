@@ -130,7 +130,15 @@ python3 exp_classif_eval/main_doce_score.py -s deep/dataset=SONYC-UST -d [1] -e 
 
 ## 3 - Audio generation
 
-As Mel spectrograms can be inverted with librosa using the feature [mel_to_audio](https://librosa.org/doc/main/generated/librosa.feature.inverse.mel_to_audio.html), we can also invert transcoded Mel spectrograms and thus retrieve audio from third-octave spectrograms. You'll find an example below (generated from "birds.wav" located in the "audio" folder. 
+As Mel spectrograms can be inverted with librosa using the feature [mel_to_audio](https://librosa.org/doc/main/generated/librosa.feature.inverse.mel_to_audio.html), we can also invert transcoded Mel spectrograms and thus retrieve audio from third-octave spectrograms. You can try with your own audio files, by putting your wav file (`myfile.wav`) in the audio folder and executing this command:
+
+```
+python3 generate_audio.py myfile.wav
+```
+
+The generated wav files will be placed in the `audio_generated/myfile` folder. It will contain the normalized original file (`myfile_original.wav`) and the audio file generated from PANN 32ms Mel Spectrogram (`myfile_generated_from_groundtruth_mel.wav`). The folder will also contain the files generated from 125ms third-octave spectrograms transcoded into 32-ms Mel spectrograms, with the different transcoding techniques mentioned in the paper: the audio file generated from the PINV transcoder (`myfile_generated_from_pinv.wav`), the audio file generated from the CNN-mels transcoder(`myfile_generated_from_cnn_mels.wav`) and finally, the audio file generated from the CNN-logits transcoder (`myfile_generated_from_cnn_logits.wav`).
+
+An audio example obtained on [freesound](https://freesound.org/) have been re-generated with this algorithm and is available in the `audio` and `audio_generated` folders. The file is named "birds.wav" (obtained from: [https://freesound.org/people/hargissssound/sounds/345851/](https://freesound.org/people/hargissssound/sounds/345851/)). Interestingly, the audio files sounds quite realistic when the transcoder CNN-logits is used. Here are the generated audios from "birds.wav":
 
 Original audio file
 
@@ -149,23 +157,13 @@ https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/d7e00e
 
 Audio generated from transcoded Mel spectrogram (CNN-mels)
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/a1a942c6-29e5-4079-9832-c4e122e5fb47
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/1bce61fe-66c4-4e98-ab00-630a4955927b
 
 
 Audio generated from transcoded Mel spectrogram (CNN-logits)
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/b40f41cf-63df-4989-8b44-b2e01d109c03
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/37322b33-5d27-4cfe-a330-8fafbbe9dc75
 
-
-You can try with your own audio files, by putting your wav file (`myfile.wav`) in the audio folder and executing this command:
-
-```
-python3 generate_audio.py myfile.wav
-```
-
-The generated wav files will be placed in the `audio_generated/myfile` folder. It will contain the normalized original file (`myfile_original.wav`) and the audio file generated from PANN 32ms Mel Spectrogram (`myfile_generated_from_groundtruth_mel.wav`). The folder will also contain the files generated from 125ms third-octave spectrograms transcoded into 32-ms Mel spectrograms, with the different transcoding techniques mentioned in the paper: the audio file generated from the PINV transcoder (`myfile_generated_from_pinv.wav`), the audio file generated from the CNN-mels transcoder(`myfile_generated_from_cnn_mels.wav`) and finally, the audio file generated from the CNN-logits transcoder (`myfile_generated_from_cnn_logits.wav`).
-
-Some audio examples obtained on [freesound](https://freesound.org/) have been re-generated with this algorithm and are available in the `audio` and `audio_generated` folders: voice_countdown.wav (from: [https://freesound.org/people/tim.kahn/sounds/82986/](https://freesound.org/people/tim.kahn/sounds/82986/)) and birds.wav (from: [https://freesound.org/people/hargissssound/sounds/345851/](https://freesound.org/people/hargissssound/sounds/345851/)). Interestingly, the audio files sounds quite realistic when the transcoder CNN-logits is used. 
 
 ## 4 - Complementary experiment results
 
