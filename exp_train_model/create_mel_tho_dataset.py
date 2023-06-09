@@ -379,9 +379,9 @@ if __name__ == "__main__":
     
     parser.add_argument('--train_ratio', type=float, default=0.75,
                         help='The ratio of data to use for training')
-    parser.add_argument('--valid_ratio', type=float, default=0.15,
+    parser.add_argument('--valid_ratio', type=float, default=0.125,
                         help='The ratio of data to use for validation')
-    parser.add_argument('--eval_ratio', type=float, default=0.15,
+    parser.add_argument('--eval_ratio', type=float, default=0.125,
                         help='The ratio of data to use for evaluation')
 
     parser.add_argument('--dataset_type', type=str, default='full',
