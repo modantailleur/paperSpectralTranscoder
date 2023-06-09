@@ -142,7 +142,7 @@ An audio example obtained on [freesound](https://freesound.org/) have been re-ge
 
 | Italic             |  Block letters |
 :-------------------------:|:-------------------------:
-![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/828a44c2-88ac-4a45-bca8-b45e712a49dc)  |  ![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/cb6604a2-dc21-4d14-872b-4aaccda0e505)
+![https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/828a44c2-88ac-4a45-bca8-b45e712a49dc](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/828a44c2-88ac-4a45-bca8-b45e712a49dc)  |  ![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/cb6604a2-dc21-4d14-872b-4aaccda0e505)
 ![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/ff9b3756-5016-4314-968c-629204548bce)  |  ![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/e2b38f4c-d88a-4eb5-8f23-cab61517fef0)
 ![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/21552f3b-79e2-4a7a-88ba-00682fdc6553)  |  ![](...)
 
