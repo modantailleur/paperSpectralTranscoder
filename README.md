@@ -147,7 +147,7 @@ https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/b9c94c
 
 Audio generated from Mel spectrogram (ground truth)
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/758c89bb-59aa-49a5-b7c9-96fee69a338d
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/7484afeb-6cd7-4119-9dc4-a49bceb35f1f
 
 
 Audio generated from transcoded Mel spectrogram (PINV)
