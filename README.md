@@ -142,27 +142,27 @@ An audio example obtained on [freesound](https://freesound.org/) have been re-ge
 
 Original audio file
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/b9c94c3a-96bc-498c-b146-78c529e6fc78
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/828a44c2-88ac-4a45-bca8-b45e712a49dc
 
 
 Audio generated from Mel spectrogram (ground truth)
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/7484afeb-6cd7-4119-9dc4-a49bceb35f1f
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/cb6604a2-dc21-4d14-872b-4aaccda0e505
 
 
 Audio generated from transcoded Mel spectrogram (PINV)
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/d7e00e30-cd30-4e23-bd9a-a400cccbd729
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/ff9b3756-5016-4314-968c-629204548bce
 
 
 Audio generated from transcoded Mel spectrogram (CNN-mels)
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/1bce61fe-66c4-4e98-ab00-630a4955927b
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/e2b38f4c-d88a-4eb5-8f23-cab61517fef0
 
 
 Audio generated from transcoded Mel spectrogram (CNN-logits)
 
-https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/37322b33-5d27-4cfe-a330-8fafbbe9dc75
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/21552f3b-79e2-4a7a-88ba-00682fdc6553
 
 
 ## 4 - Complementary experiment results
