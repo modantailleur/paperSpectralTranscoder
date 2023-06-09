@@ -140,6 +140,12 @@ The generated wav files will be placed in the `audio_generated/myfile` folder. I
 
 An audio example obtained on [freesound](https://freesound.org/) have been re-generated with this algorithm and is available in the `audio` and `audio_generated` folders. The file is named "birds.wav" (obtained from: [https://freesound.org/people/hargissssound/sounds/345851/](https://freesound.org/people/hargissssound/sounds/345851/)). Interestingly, the audio files sounds quite realistic when the transcoder CNN-logits is used. Here are the generated audios from "birds.wav":
 
+| Italic             |  Block letters |
+:-------------------------:|:-------------------------:
+![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/828a44c2-88ac-4a45-bca8-b45e712a49dc)  |  ![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/cb6604a2-dc21-4d14-872b-4aaccda0e505)
+![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/ff9b3756-5016-4314-968c-629204548bce)  |  ![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/e2b38f4c-d88a-4eb5-8f23-cab61517fef0)
+![](https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/21552f3b-79e2-4a7a-88ba-00682fdc6553)  |  ![](...)
+
 Original audio file
 
 https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/828a44c2-88ac-4a45-bca8-b45e712a49dc
