@@ -130,7 +130,34 @@ python3 exp_classif_eval/main_doce_score.py -s deep/dataset=SONYC-UST -d [1] -e 
 
 ## 3 - Audio generation
 
-As Mel spectrograms can be inverted with librosa using the feature [mel_to_audio](https://librosa.org/doc/main/generated/librosa.feature.inverse.mel_to_audio.html), we can also invert transcoded Mel spectrograms and thus retrieve audio from third-octave spectrograms. You can try with your own audio files, by putting your wav file (`myfile.wav`) in the audio folder and executing this command:
+As Mel spectrograms can be inverted with librosa using the feature [mel_to_audio](https://librosa.org/doc/main/generated/librosa.feature.inverse.mel_to_audio.html), we can also invert transcoded Mel spectrograms and thus retrieve audio from third-octave spectrograms. You'll find an example below (generated from "birds.wav" located in the "audio" folder. 
+
+Original audio file
+
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/b9c94c3a-96bc-498c-b146-78c529e6fc78
+
+
+Audio generated from Mel spectrogram (ground truth)
+
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/758c89bb-59aa-49a5-b7c9-96fee69a338d
+
+
+Audio generated from transcoded Mel spectrogram (PINV)
+
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/d7e00e30-cd30-4e23-bd9a-a400cccbd729
+
+
+Audio generated from transcoded Mel spectrogram (CNN-mels)
+
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/a1a942c6-29e5-4079-9832-c4e122e5fb47
+
+
+Audio generated from transcoded Mel spectrogram (CNN-logits)
+
+https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/b40f41cf-63df-4989-8b44-b2e01d109c03
+
+
+You can try with your own audio files, by putting your wav file (`myfile.wav`) in the audio folder and executing this command:
 
 ```
 python3 generate_audio.py myfile.wav
