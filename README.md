@@ -138,7 +138,7 @@ python3 generate_audio.py myfile.wav
 
 The generated wav files will be placed in the `audio_generated/myfile` folder. It will contain the normalized original file (`myfile_original.wav`) and the audio file generated from PANN 32ms Mel Spectrogram (`myfile_generated_from_groundtruth_mel.wav`). The folder will also contain the files generated from 125ms third-octave spectrograms transcoded into 32-ms Mel spectrograms, with the different transcoding techniques mentioned in the paper: the audio file generated from the PINV transcoder (`myfile_generated_from_pinv.wav`), the audio file generated from the CNN-mels transcoder(`myfile_generated_from_cnn_mels.wav`) and finally, the audio file generated from the CNN-logits transcoder (`myfile_generated_from_cnn_logits.wav`).
 
-An audio example obtained on [freesound](https://freesound.org/) have been re-generated with this algorithm and is available in the `audio` and `audio_generated` folders. The file is named "birds.wav" (obtained from: [https://freesound.org/people/hargissssound/sounds/345851/](https://freesound.org/people/hargissssound/sounds/345851/)). Interestingly, the audio files sounds quite realistic when the transcoder CNN-logits is used. Here are the generated audios from "birds.wav":
+An audio example obtained on [freesound](https://freesound.org/) have been re-generated with this algorithm and is available in the `audio` and `audio_generated` folders. The file is named "birds.wav" (obtained from: [https://freesound.org/people/hargissssound/sounds/345851/](https://freesound.org/people/hargissssound/sounds/345851/)). Interestingly, the audio files sounds quite realistic when the transcoder CNN-logits is used. Here are the generated audios from "birds.wav" (please unmute videos before playing):
 
 Original audio file
 
@@ -170,10 +170,6 @@ https://github.com/modantailleur/paperSpectralTranscoder/assets/110234188/21552f
 The figure below (run `plot_spectro_dcase2023.py` to replicate the figure) demonstrates the results of the transcoding process using various transcoding algorithms, namely the PINV transcoder, CNN-mels transcoder, and CNN-logits transcoder, on a 1-second audio excerpt from the evaluation dataset.
 
 <img src="results/spectro_dcase_2023.png" width=1000>
-
-The ability to easily transcode Mel spectrograms into third-octave spectrograms would have been advantageous for training deep learning models, facilitating approaches such as auto-encoding. However, this task is not straightforward, despite the presence of more Mel bins in Mel spectrograms. The following figures (run `plot_thirdo_mels_bands_repartition.py` to replicate the figure) illustrate the distribution of Mel spectral bands and third-octave bands along the frequency axis. It is observed that there are more third-octave bands in the lower frequencies (below 1kHz) compared to Mel bands, making the transcoding of Mels to third-octaves, especially in that part of the spectrum, challenging.
-
-<img src="results/thirdo_mels_bands_repartition.png" width=600>
 
 In our paper titled "Spectral Transcoder: Using Pretrained Urban Sound Classifiers on Undersampled Spectral Representations," we propose a revised version of the aggregation method introduced by F. Gontier et al. [4]. During the inference process, we group some of the classes that are considered relevant for each SONYC-UST and UrbanSound8k class. The groups used during inference can be found in the files `exp_classif_eval/sub_classes_sonyc_ust.xlsx` and `exp_classif_eval/sub_classes_urbansound8k.xlsx`.
 
