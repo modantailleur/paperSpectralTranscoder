@@ -2,6 +2,9 @@
 
 This repo contains code for the paper: **Spectral Transcoder : Using Pretrained Urban Sound Classifiers On Undersampled Spectral Representations** [1]. It uses YAMNet [2] and PANN [3] pre-trained models in a teacher student approach to transcode 125ms third-octave spectrogral representations into 32ms Mel representations. Results of the paper can be reproduced looking at section 2. Some audio samples can be generated looking at section 3. Some complementary experiment results are in section 4. 
 
+If you would like to use this algorithm in your own project, please refer to the code available at the following link:  
+👉 [https://github.com/modantailleur/fast-to-ears](https://github.com/modantailleur/fast-to-ears)
+
 ## 1 - Setup Instructions
 
 The codebase is developed with Python 3.9.15. To install the required dependencies, run the following command:
@@ -189,7 +192,7 @@ python3 exp_classif_eval/main_doce_score.py -s "{'dataset':'SONYC-UST'}" -d [1] 
 
 ## REFERENCES
 
-[1] link to our paper
+[1] Tailleur, M., Lagrange, M., Aumond, P., & Tourre, V. (2023, September). Spectral trancoder: using pretrained urban sound classifiers on undersampled spectral representations. In 8th Workshop on Detection and Classification of Acoustic Scenes and Events (DCASE).
 
 [2] Tensorflow, “Sound classification with yamnet,” 2020, last
 access on 09/05/2023. [Online]. Source Code: [https://github.com/tensorflow/models/tree/master/research/audioset/yamnet/](https://github.com/tensorflow/models/tree/master/research/audioset/yamnet/).
